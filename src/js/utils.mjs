@@ -1,38 +1,39 @@
-// wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
 }
-// or a more concise version if you are into that sort of thing:
-// export const qs = (selector, parent = document) => parent.querySelector(selector);
 
-// retrieve data from localstorage
 export function getLocalStorage(key) {
   return JSON.parse(localStorage.getItem(key));
 }
-// save data to local storage
+
 export function setLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
-// set a listener for both touchend and click
+
 export function setClick(selector, callback) {
-  qs(selector).addEventListener("touchend", (event) => {
+  let touchHandled = false;
+  const element = qs(selector);
+  element.addEventListener("touchend", (event) => {
     event.preventDefault();
+    touchHandled = true;
     callback();
   });
-  qs(selector).addEventListener("click", callback);
+  element.addEventListener("click", (event) => {
+    if (!touchHandled) {
+      callback();
+    }
+    touchHandled = false;
+  });
 }
 
-// get the product id from the query string
 export function getParam(param) {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const product = urlParams.get(param);
-  return product
+  return urlParams.get(param);
 }
 
 export function renderListWithTemplate(template, parentElement, list, position = "afterbegin", clear = false) {
   const htmlStrings = list.map(template);
-  // if clear is true we need to clear out the contents of the parent.
   if (clear) {
     parentElement.innerHTML = "";
   }
@@ -46,8 +47,9 @@ export function renderWithTemplate(template, parentElement, data, callback) {
   }
 }
 
-async function loadTemplate(path) {
+export async function loadTemplate(path) {
   const res = await fetch(path);
+  if (!res.ok) throw new Error(`Failed to load template: ${path}`);
   const template = await res.text();
   return template;
 }
@@ -62,5 +64,4 @@ export async function loadHeaderFooter() {
   renderWithTemplate(headerTemplate, headerElement);
   renderWithTemplate(footerTemplate, footerElement);
 }
-
 
