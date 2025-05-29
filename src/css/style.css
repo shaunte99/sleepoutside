@@ -345,3 +345,81 @@ footer {
 .success-message a.button:hover {
   background-color: #005f00;
 }
+
+/* ===============================
+   Newsletter Subscription Form Styles
+   =============================== */
+.newsletter {
+  background-color: #f9f9f9;
+  padding: 2rem;
+  text-align: center;
+  margin: 2rem auto;
+  max-width: 600px;
+  border: 1px solid var(--light-grey);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.newsletter h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--dark-grey);
+}
+
+.newsletter p {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  color: var(--dark-grey);
+}
+
+.newsletter form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.newsletter input[type="email"] {
+  padding: 0.75rem;
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid var(--light-grey);
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.newsletter button {
+  padding: 0.75rem 1.5rem;
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.newsletter button:hover {
+  background-color: var(--tertiary-color);
+}
+
+@media screen and (max-width: 600px) {
+  .newsletter {
+    padding: 1rem;
+  }
+
+  .newsletter h2 {
+    font-size: 1.2rem;
+  }
+
+  .newsletter p {
+    font-size: 0.9rem;
+  }
+
+  .newsletter input[type="email"] {
+    width: 100%;
+  }
+
+  .newsletter button {
+    width: 100%;
+  }
+}
